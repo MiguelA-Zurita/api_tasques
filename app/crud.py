@@ -33,6 +33,7 @@ def update_tasks(db: Session, task_id: int, task_update: TaskUpdate):
         Updated some task fields
     """
     # TODO: El vostre codi va aqui
+    stmnt = db.query(Task).where(Task.id == task_id)
     pass
 
 
@@ -44,4 +45,4 @@ def delete_tasks(db: Session, task_id: int):
         Return delete task
     """
     # TODO: El vostre codi va aqui
-    pass
+    Session.delete(task_id)
