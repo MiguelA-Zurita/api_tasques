@@ -1,7 +1,6 @@
 from sqlalchemy.orm import Session
 from models import Task
-from schemas import TaskCreate, TaskUpdate
-
+from schemas import TaskCreate
 
 def get_tasks(db: Session):
     """
@@ -10,20 +9,21 @@ def get_tasks(db: Session):
     Output:
         List all tasks
     """
-    # TODO: El vostre codi va aqui
-    pass
-
+    return db.query(Task).all()
 
 def create_tasks(db: Session, task: TaskCreate):
     """
     Input:
         db: database session
+        task: TaskCreate schema object
     Output:
         Return the new task
     """
-    # TODO: El vostre codi va aqui
-    pass
-
+    new_task = Task(**task.dict())
+    db.add(new_task)
+    db.commit()
+    db.refresh(new_task)
+    return new_task
 
 def update_tasks(db: Session, task_id: int, task_update: TaskUpdate):
     """
